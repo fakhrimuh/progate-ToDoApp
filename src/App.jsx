@@ -1,4 +1,3 @@
-import "./App.css";
 import Todos from "./components/Todos";
 import React, { useState } from "react";
 
@@ -21,6 +20,7 @@ function App() {
     },
   ]);
 
+  // Fungsi untuk toggle status completed dari todo
   const toggleCompleted = (todoId) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === todoId) {
@@ -31,11 +31,21 @@ function App() {
     setTodos(updatedTodos);
   };
 
+  // Fungsi untuk menghapus todo berdasarkan id
+  const deleteTodo = (todoId) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== todoId);
+    setTodos(updatedTodos);
+  };
+
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>My Todo List</h1>
-      {/* Teruskan function toggleCompleted ke component Todos */}
-      <Todos todos={todos} toggleCompleted={toggleCompleted} />
+      {/* Teruskan fungsi deleteTodo ke komponen Todos */}
+      <Todos
+        todos={todos}
+        toggleCompleted={toggleCompleted}
+        deleteTodo={deleteTodo}
+      />
     </div>
   );
 }
