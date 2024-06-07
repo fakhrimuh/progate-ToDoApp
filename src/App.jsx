@@ -1,4 +1,5 @@
 import Todos from "./components/Todos";
+import TodoForm from "./components/TodoForm";
 import React, { useState } from "react";
 
 function App() {
@@ -31,16 +32,30 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  // Fungsi untuk menghapus todo berdasarkan id
   const deleteTodo = (todoId) => {
     const updatedTodos = todos.filter((todo) => todo.id !== todoId);
+    setTodos(updatedTodos);
+  };
+
+  const addTodo = (todoTitle) => {
+    if (todoTitle === "") {
+      return;
+    }
+
+    const newTodo = {
+      id: todos.length + 1,
+      title: todoTitle,
+      completed: false,
+    };
+
+    const updatedTodos = todos.concat(newTodo);
     setTodos(updatedTodos);
   };
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>My Todo List</h1>
-      {/* Teruskan fungsi deleteTodo ke komponen Todos */}
+      <TodoForm addTodo={addTodo} />
       <Todos
         todos={todos}
         toggleCompleted={toggleCompleted}
